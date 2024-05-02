@@ -1,6 +1,6 @@
-import Event from '#models/event'
-import Question from '#models/question'
 import type { HttpContext } from '@adonisjs/core/http'
+import Event from '../event/models/event.js'
+import Question from '../task/models/task.js'
 
 export default class DashboardController {
   async index({ inertia }: HttpContext) {

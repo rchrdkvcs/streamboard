@@ -1,11 +1,11 @@
+import Event from '#events/models/event'
 import type { HttpContext } from '@adonisjs/core/http'
-import Event from '../../event/models/event.js'
 
 export default class StoreEventController {
-  async execute({ request, response }: HttpContext) {
+  async handle({ inertia, request }: HttpContext) {
     const { title } = request.body()
     const event = await Event.create({ title })
 
-    return response.redirect(`/dashboard/${event.id}/question`)
+    return inertia.location(`/event/${event.id}`)
   }
 }

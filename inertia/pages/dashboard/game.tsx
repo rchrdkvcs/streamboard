@@ -1,6 +1,6 @@
-import type ShareDataMiddleware from '#middleware/share_data_middleware'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { usePage } from '@inertiajs/react'
+import type ShareDataMiddleware from '../../../app/core/middleware/share_data_middleware'
 import SideNav from '../components/side_nav'
 import TopNav from '../components/top_nav'
 

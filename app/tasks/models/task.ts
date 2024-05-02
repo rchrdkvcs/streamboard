@@ -1,21 +1,14 @@
 import { BaseModel, beforeCreate, column } from '@adonisjs/lucid/orm'
-import { DateTime } from 'luxon'
 import { randomUUID } from 'node:crypto'
 
-export default class Question extends BaseModel {
+export default class Task extends BaseModel {
   @beforeCreate()
-  static generateUUID(model: Question) {
+  static generateUUID(model: Task) {
     model.id = randomUUID()
   }
 
   @column({ isPrimary: true })
   declare id: string
-
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
 
   @column()
   declare label: string

@@ -1,5 +1,5 @@
-import Question from '#models/question'
 import type { HttpContext } from '@adonisjs/core/http'
+import Question from '../../task/models/task.js'
 
 export default class StoreQstController {
   async execute({ request }: HttpContext) {

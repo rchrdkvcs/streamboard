@@ -1,8 +1,8 @@
 import type DashboardController from '#controllers/dashboard_controller'
-import type ShareDataMiddleware from '#middleware/share_data_middleware'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
 import { useState } from 'react'
+import type ShareDataMiddleware from '../../../app/core/middleware/share_data_middleware'
 import StoreEventForm from './store_event_form'
 
 interface SideNavProps {
