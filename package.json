@@ -16,6 +16,8 @@
   "imports": {
     "#events/*": "./app/events/*.js",
     "#tasks/*": "./app/tasks/*.js",
+    "#gamemaster/*": "./app/gamemaster/*.js",
+    "#stream/*": "./app/stream/*.js",
     "#database/*": "./database/*.js",
     "#tests/*": "./tests/*.js",
     "#start/*": "./start/*.js",

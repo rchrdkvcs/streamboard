@@ -5,7 +5,8 @@
     "outDir": "./build",
     "paths": {
       "#events/*": ["./app/events/*"],
-      "#tasks/*": ["./app/tasks/*"]
+      "#gamemaster/*": ["./app/gamemaster/*"],
+      "#stream/*": ["./app/stream/*"]
     }
   },
   "exclude": ["./inertia/**/*", "node_modules", "build"]

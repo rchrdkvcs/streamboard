@@ -1,5 +1,5 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { useForm } from '@inertiajs/react'
+import { Link, useForm } from '@inertiajs/react'
 import type ShowEventController from '../../../app/events/controllers/show_event_controller'
 
 interface ShowEventProps {
@@ -56,6 +56,7 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
         />
         <button type="submit">Create</button>
       </form>
+      <Link href={`/gamemaster/${event.id}/1`}>Lancer</Link>
     </div>
   )
 }
