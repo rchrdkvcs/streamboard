@@ -3,45 +3,61 @@ import { Link } from '@inertiajs/react'
 
 interface ShowGameMasterProps {
   props: {
-    data: Task
+    qst: Task
     meta: any
+    eventId: string
   }
 }
 
-export default function Show({ data, meta }: ShowGameMasterProps['props']) {
-  const prevPage = () => {
-    if (meta.currentPage <= 1) {
-      return meta.currentPage
-    }
-
-    return meta.currentPage - 1
+export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props']) {
+  function setVisibility(isVisible: boolean) {
+    localStorage.setItem('answerIsVisible', JSON.stringify(isVisible))
   }
 
-  const nextPage = () => {
-    if (meta.currentPage >= meta.total) {
-      return meta.currentPage
-    }
-
-    return meta.currentPage + 1
+  function getVisibility(): boolean {
+    const stored = localStorage.getItem('answerIsVisible')
+    return stored ? JSON.parse(stored) : false
   }
 
   return (
     <div>
       <h1>Game Master</h1>
       <div>
-        <h2>{data.label}</h2>
-        {data.media && <img src={data.media} />}
-        <p>{data.answer}</p>
+        <h2>{qst.label}</h2>
+        {qst.media && <img src={qst.media} />}
+        <p>{qst.answer}</p>
       </div>
       <nav>
         <ul>
           <li>
-            <Link href={`${prevPage()}`}>Previous</Link>
+            <Link
+              href={`/gamemaster/${eventId}${meta.previousPageUrl || '/?page=1'}`}
+              onClick={() => {
+                setVisibility(false)
+              }}
+            >
+              Previous
+            </Link>
           </li>
           <li>
-            <Link href={`${nextPage()}`}>Next</Link>
+            <Link
+              href={`/gamemaster/${eventId}${meta.nextPageUrl || '/?page=1'}`}
+              onClick={() => {
+                setVisibility(false)
+              }}
+            >
+              Next
+            </Link>
           </li>
         </ul>
+        <button
+          onClick={() => {
+            const currentVisibility = getVisibility()
+            setVisibility(!currentVisibility)
+          }}
+        >
+          Afficher
+        </button>
       </nav>
     </div>
   )

@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react'
 
 interface StreamProps {
   props: {
-    data: any
+    qst: any
     meta: any
+    showAnswer: boolean
   }
   task: {
     label: string
@@ -16,34 +17,48 @@ interface StreamProps {
 export default function Stream() {
   const [task, setTask] = useState<StreamProps['task']>()
   const [metas, setMetas] = useState<StreamProps['props']>()
-
-  console.log(metas)
+  const [showAnswer, setShowAnswer] = useState<StreamProps['props']['showAnswer']>()
 
   useEffect(() => {
     const transmit = new Transmit({
       baseUrl: 'http://localhost:3333',
     })
 
-    const subscription = transmit.subscription('currentTask')
-    void subscription.create()
+    const taskSubs = transmit.subscription('stream/task')
+    void taskSubs.create()
 
-    subscription.onMessage(({ data, meta }: StreamProps['props']) => {
-      setTask(data)
+    taskSubs.onMessage(({ qst, meta }: StreamProps['props']) => {
+      setTask(qst)
       setMetas(meta)
     })
+  }, [])
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('answerIsVisible')
+        setShowAnswer(stored ? JSON.parse(stored) : false)
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+
+    // Cleanup function
     return () => {
-      transmit.close()
+      window.removeEventListener('storage', handleStorageChange)
     }
   }, [])
 
   return (
-    <main className="flex items-start justify-start w-full h-screen">
-      <h1>Stream</h1>
-      <div>
-        <h2>{task?.label}</h2>
-        {task?.media && <img src={task.media} />}
-        <p>{task?.answer}</p>
+    <main>
+      <div className="">
+        <h1 className="text-4xl font-bold">{task?.label}</h1>
+        <img src={task?.media} className="w-full h-auto mt-4" />
+        <p
+          className={` text-2xl font-bold text-center mt-4 ${showAnswer === true ? 'block' : 'hidden'}`}
+        >
+          {task?.answer}
+        </p>
       </div>
     </main>
   )

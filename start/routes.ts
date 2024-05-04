@@ -6,13 +6,14 @@
 | The routes file is used for defining the HTTP routes.
 |
 */
+import router from '@adonisjs/core/services/router'
 
 const IndexGamemasterController = () =>
   import('#gamemaster/controllers/index_gamemaster_controller')
 const ShowGamemasterController = () => import('#gamemaster/controllers/show_gamemaster_controller')
-import router from '@adonisjs/core/services/router'
+const StoreGamemasterController = () =>
+  import('#gamemaster/controllers/store_gamemaster_controller')
 const IndexStreamController = () => import('../app/stream/controllers/index_stream_controller.js')
-
 const IndexEventsController = () => import('#events/controllers/index_events_controller')
 const ShowEventController = () => import('#events/controllers/show_event_controller')
 const StoreEventController = () => import('#events/controllers/store_event_controller')
@@ -28,7 +29,8 @@ router.post('/events/store', [StoreEventController])
 // GAME MASTER ----------------------------------------------------------------------------------------------
 
 router.get('/gamemaster', [IndexGamemasterController])
-router.get('/gamemaster/:id/:page', [ShowGamemasterController])
+router.get('/gamemaster/:id', [ShowGamemasterController])
+router.post('/gamemaster/answer', [StoreGamemasterController])
 
 // TASK -----------------------------------------------------------------------------------------------------
 

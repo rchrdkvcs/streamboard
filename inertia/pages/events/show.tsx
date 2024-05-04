@@ -56,7 +56,7 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
         />
         <button type="submit">Create</button>
       </form>
-      <Link href={`/gamemaster/${event.id}/1`}>Lancer</Link>
+      <Link href={`/gamemaster/${event.id}`}>Lancer</Link>
     </div>
   )
 }
