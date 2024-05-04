@@ -6,6 +6,7 @@
 | The routes file is used for defining the HTTP routes.
 |
 */
+const DestroyTaskController = () => import('#tasks/controllers/destroy_task_controller')
 import router from '@adonisjs/core/services/router'
 
 const IndexGamemasterController = () =>
@@ -35,6 +36,7 @@ router.post('/gamemaster/answer', [StoreGamemasterController])
 // TASK -----------------------------------------------------------------------------------------------------
 
 router.post('/task/store', [StoreTaskController])
+router.delete('/task/destroy', [DestroyTaskController])
 
 // STREAM ---------------------------------------------------------------------------------------------------
 

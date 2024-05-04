@@ -1,5 +1,5 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Link, useForm } from '@inertiajs/react'
+import { Link, router, useForm } from '@inertiajs/react'
 import type ShowEventController from '../../../app/events/controllers/show_event_controller'
 
 interface ShowEventProps {
@@ -14,14 +14,14 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
     eventId: event.id,
   })
 
-  function submit(e: React.FormEvent<HTMLFormElement>) {
+  function submitCreateTask(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    post('/task/store', {
-      onSuccess: () => {
-        setData('label', '')
-        setData('answer', '')
-        setData('media', '')
-      },
+    post('/task/store')
+  }
+
+  function submitDestroyTask(taskId: string) {
+    router.delete('/task/destroy', {
+      data: { id: taskId },
     })
   }
 
@@ -32,10 +32,23 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
       <h2>Tasks</h2>
       <ul>
         {tasks.map((task) => (
-          <li key={task.id}>{task.label}</li>
+          <li key={task.id} className="flex gap-6">
+            <p>{task.label}</p>
+            <p>{task.answer}</p>
+            <div className="flex gap-2">
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  submitDestroyTask(task.id)
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </li>
         ))}
       </ul>
-      <form onSubmit={submit}>
+      <form onSubmit={submitCreateTask}>
         <input
           type="text"
           name="label"
