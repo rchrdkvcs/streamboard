@@ -7,7 +7,7 @@ interface IndexGameMasterProps {
 
 export default function Index({ events }: IndexGameMasterProps['events']) {
   return (
-    <div>
+    <main>
       <h1>Game Master</h1>
       <ul>
         {events.map((event) => (
@@ -16,6 +16,6 @@ export default function Index({ events }: IndexGameMasterProps['events']) {
           </li>
         ))}
       </ul>
-    </div>
+    </main>
   )
 }

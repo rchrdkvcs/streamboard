@@ -6,7 +6,7 @@ import { hydrateRoot } from 'react-dom/client'
 import '../css/app.css'
 
 createInertiaApp({
-  progress: { color: '#5468FF' },
+  progress: { color: '#53fc18' },
 
   title: (title) => `${title}`,
 

@@ -7,6 +7,7 @@
 |
 */
 const DestroyTaskController = () => import('#tasks/controllers/destroy_task_controller')
+const DestroyEventController = () => import('#events/controllers/destroy_event_controller')
 import router from '@adonisjs/core/services/router'
 
 const IndexGamemasterController = () =>
@@ -24,8 +25,8 @@ const StoreTaskController = () => import('#tasks/controllers/store_tasks_control
 
 router.get('/events', [IndexEventsController])
 router.get('/event/:id', [ShowEventController])
-
-router.post('/events/store', [StoreEventController])
+router.post('/event/store', [StoreEventController])
+router.delete('/event/destroy', [DestroyEventController])
 
 // GAME MASTER ----------------------------------------------------------------------------------------------
 
