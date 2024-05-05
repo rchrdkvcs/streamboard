@@ -1,6 +1,6 @@
 import type Task from '#tasks/models/task'
-import { Head, Link } from '@inertiajs/react'
-import { useEffect, useState } from 'react'
+import { Head, Link, router } from '@inertiajs/react'
+import { useState } from 'react'
 import {
   MaterialSymbolsChevronLeftRounded,
   MaterialSymbolsChevronRightRounded,
@@ -17,26 +17,12 @@ interface ShowGameMasterProps {
 }
 
 export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props']) {
-  const [showAnswer, setShowAnswer] = useState<boolean>(false)
+  const [showAnswer, setShowAnswer] = useState<boolean>(qst.answerVisibility)
 
-  const setVisibility = (isVisible: boolean) => {
-    localStorage.setItem('answerIsVisible', JSON.stringify(isVisible))
-    setShowAnswer(isVisible)
+  const setVisibility = (visibility: boolean, qstId: string) => {
+    setShowAnswer(visibility)
+    router.put('/gamemaster/answer-visibility', { visibility, qstId })
   }
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const stored = localStorage.getItem('answerIsVisible')
-      setShowAnswer(stored ? JSON.parse(stored) : false)
-    }
-
-    window.addEventListener('storage', handleStorageChange)
-
-    // Cleanup function
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-    }
-  }, [])
 
   return (
     <>
@@ -54,7 +40,7 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
         </header>
 
         <section className="flex flex-col items-center justify-between w-full h-full px-4 py-4 mx-auto md:px-0 max-w-7xl">
-          <div className="relative z-50 flex flex-col items-center justify-center w-full gap-3 p-4 overflow-hidden text-white border md:w-1/2 md:gap-4 bg-neutral-900 rounded-xl md:h-1/2 border-neutral-800">
+          <div className="relative z-50 flex flex-col items-center justify-center w-full gap-3 p-4 overflow-hidden text-white border md:w-1/2 md:gap-4 bg-neutral-900 rounded-xl border-neutral-800">
             <div
               className="absolute top-0 left-0 bg-center bg-no-repeat bg-cover size-full blur-3xl opacity-15 -z-10"
               style={{
@@ -62,7 +48,7 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
               }}
             ></div>
             <h2 className="text-xl font-semibold text-center text-neutral-100">{qst.label}</h2>
-            {qst.media && <img src={qst.media} className="w-full mx-auto rounded-lg md:w-1/2" />}
+            {qst.media && <img src={qst.media} className="w-full mx-auto rounded-lg md:w-3/4" />}
             <p className="text-lg font-semibold text-center text-neutral-300">{qst.answer}</p>
           </div>
 
@@ -80,7 +66,7 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
               <Link
                 href={`/gamemaster/${eventId}${meta.previousPageUrl || '/?page=1'}`}
                 onClick={() => {
-                  setVisibility(false)
+                  setVisibility(false, qst.id)
                 }}
                 className="flex items-center justify-center w-full gap-1 py-4 text-sm font-semibold transition-all duration-150 ease-in-out border rounded-lg md:gap-4 md:p-4 md:text-base border-neutral-500 text-neutral-300 hover:bg-neutral-200 hover:text-black"
               >
@@ -89,7 +75,7 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
               </Link>
               <button
                 onClick={() => {
-                  setVisibility(!showAnswer)
+                  setVisibility(!showAnswer, qst.id)
                 }}
                 className={`flex items-center justify-center w-full gap-1 py-4 text-sm font-semibold transition-all duration-150 ease-in-out border rounded-lg md:gap-4 md:p-4 md:text-base border-neutral-500 hover:bg-neutral-200 hover:text-black ${showAnswer ? 'bg-neutral-200 text-black' : 'text-neutral-300'}`}
               >
@@ -108,7 +94,7 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
               <Link
                 href={`/gamemaster/${eventId}${meta.nextPageUrl || '/?page=1'}`}
                 onClick={() => {
-                  setVisibility(false)
+                  setVisibility(false, qst.id)
                 }}
                 className="flex items-center justify-center w-full gap-1 py-4 text-sm font-semibold transition-all duration-150 ease-in-out border rounded-lg md:gap-4 md:p-4 md:text-base border-neutral-500 text-neutral-300 hover:bg-neutral-200 hover:text-black"
               >
@@ -118,45 +104,6 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
             </div>
           </div>
         </section>
-
-        {/* <h1>Game Master</h1>
-      <div>
-      <h2>{qst.label}</h2>
-      {qst.media && <img src={qst.media} />}
-      <p>{qst.answer}</p>
-      </div>
-      <nav>
-      <ul>
-      <li>
-      <Link
-      href={`/gamemaster/${eventId}${meta.previousPageUrl || '/?page=1'}`}
-      onClick={() => {
-        setVisibility(false)
-      }}
-      >
-              Previous
-              </Link>
-              </li>
-              <li>
-              <Link
-              href={`/gamemaster/${eventId}${meta.nextPageUrl || '/?page=1'}`}
-              onClick={() => {
-                setVisibility(false)
-              }}
-              >
-              Next
-              </Link>
-              </li>
-              </ul>
-              <button
-              onClick={() => {
-                const currentVisibility = getVisibility()
-                setVisibility(!currentVisibility)
-              }}
-              >
-              Afficher
-              </button>
-      </nav> */}
       </main>
     </>
   )

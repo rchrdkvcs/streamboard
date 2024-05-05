@@ -88,7 +88,7 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
 
       <main className="flex flex-col items-start justify-start w-full h-screen overflow-hidden bg-neutral-950">
         <header className="w-full h-16 border-b border-neutral-800">
-          <div className="flex items-center justify-between w-full h-full mx-auto max-w-7xl">
+          <div className="flex items-center justify-between w-full h-full px-4 mx-auto max-w-7xl xl:px-0">
             <div className="flex items-center justify-start h-full gap-2">
               <img
                 src="https://files.kick.com/images/user/380888/profile_image/conversion/b91b943d-b9d5-444d-8cd9-90d36cb63ba4-fullsize.webp"
@@ -123,7 +123,7 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
           </div>
         </header>
 
-        <section className="w-full h-full mx-auto overflow-y-auto max-w-7xl">
+        <section className="w-full h-full px-4 mx-auto overflow-y-auto max-w-7xl xl:px-0">
           <ul className="grid items-start justify-start w-full grid-cols-1 py-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-fit">
             {tasks.map((task) => (
               <li

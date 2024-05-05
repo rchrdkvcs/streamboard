@@ -20,5 +20,11 @@ export default class Task extends BaseModel {
   declare media: string | null
 
   @column()
+  declare answerVisibility: boolean
+
+  @column()
+  declare order: number
+
+  @column()
   declare event_id: string
 }

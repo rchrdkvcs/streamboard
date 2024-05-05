@@ -9,6 +9,8 @@ export default class extends BaseSchema {
       table.string('label')
       table.string('answer')
       table.text('media').nullable()
+      table.boolean('answer_visibility').defaultTo(false)
+      table.integer('order').defaultTo(0)
 
       table.uuid('event_id').notNullable().references('events.id').onDelete('CASCADE')
     })

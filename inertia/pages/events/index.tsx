@@ -72,7 +72,7 @@ export default function Index({ events }: IndexEventsProps['event']) {
 
       <main className="flex flex-col items-start justify-start w-full h-screen overflow-hidden bg-neutral-950">
         <header className="w-full h-16 border-b border-neutral-800">
-          <div className="flex items-center justify-between w-full h-full mx-auto max-w-7xl">
+          <div className="flex items-center justify-between w-full h-full px-4 mx-auto max-w-7xl xl:px-0">
             <div className="flex items-center justify-start h-full gap-2">
               <img
                 src="https://files.kick.com/images/user/380888/profile_image/conversion/b91b943d-b9d5-444d-8cd9-90d36cb63ba4-fullsize.webp"
@@ -90,7 +90,7 @@ export default function Index({ events }: IndexEventsProps['event']) {
           </div>
         </header>
 
-        <section className="w-full h-full mx-auto overflow-y-auto max-w-7xl">
+        <section className="w-full h-full px-4 mx-auto overflow-y-auto max-w-7xl xl:px-0">
           <ul className="flex flex-col items-start justify-start w-full h-full py-4 space-y-4">
             {events.map((event) => (
               <li key={event.id} className="w-full">
