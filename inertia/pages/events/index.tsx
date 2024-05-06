@@ -93,7 +93,7 @@ export default function Index({ events }: IndexEventsProps['event']) {
         <section className="w-full h-full px-4 mx-auto overflow-y-auto max-w-7xl xl:px-0">
           <ul className="flex flex-col items-start justify-start w-full h-full py-4 space-y-4">
             {events.map((event) => (
-              <li key={event.id} className="w-full">
+              <li key={event.id} className="w-full group">
                 <div className="flex items-center justify-between w-full p-4 transition-all duration-150 ease-in-out bg-opacity-75 cursor-pointer -z-10 bg-neutral-900 rounded-xl backdrop-blur-md hover:bg-opacity-100">
                   <Link
                     className="flex items-center justify-start w-full h-full gap-4"
@@ -108,7 +108,7 @@ export default function Index({ events }: IndexEventsProps['event']) {
                       <h2 className="text-lg font-semibold text-neutral-100">{event.title}</h2>
                     </div>
                   </Link>
-                  <div className="flex items-center justify-end">
+                  <div className="items-center justify-end hidden group-hover:flex">
                     <button
                       onClick={() => submitDestroyEvent(event.id)}
                       className="z-50 px-2 py-1 font-semibold text-red-600 transition-all duration-150 ease-in-out bg-opacity-75 rounded-full hover:bg-red-600 hover:text-white hover:bg-opacity-100"

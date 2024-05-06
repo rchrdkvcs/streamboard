@@ -1,5 +1,6 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Head, Link, router, useForm } from '@inertiajs/react'
+import { Reorder, motion } from 'framer-motion'
 import { useState } from 'react'
 import { IonTrashBin } from '~/components/icones'
 import type ShowEventController from '../../../app/events/controllers/show_event_controller'
@@ -8,8 +9,28 @@ interface ShowEventProps {
   props: InferPageProps<ShowEventController, 'handle'>
 }
 
-export default function Show({ event, tasks }: ShowEventProps['props']) {
+export default function Show({ event, tasks: initialTasks }: ShowEventProps['props']) {
   const [formDisplay, setFormDisplay] = useState(false)
+  const [tasks, setTasks] = useState(initialTasks)
+  const [modified, setModified] = useState(false)
+
+  function handleReorder(newOrder: typeof tasks) {
+    if (newOrder.length !== tasks.length) {
+      return
+    }
+
+    if (newOrder === tasks) {
+      return
+    }
+
+    setTasks(newOrder)
+    setModified(true)
+  }
+
+  function submitReorder(newOrder: typeof tasks) {
+    router.patch('/task/reorder', { newOrder })
+    setModified(false)
+  }
 
   const { data, setData, post } = useForm({
     label: '',
@@ -24,6 +45,7 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
   }
 
   function submitDestroyTask(taskId: string) {
+    setTasks((ts) => ts.filter((task) => task.id !== taskId))
     router.delete('/task/destroy', {
       data: { id: taskId },
     })
@@ -86,6 +108,20 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
         </div>
       )}
 
+      {modified && (
+        <motion.button
+          initial={{ opacity: 0, y: 100, x: '-50%' }}
+          animate={{ opacity: 1, y: 0, x: '-50%' }}
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.15, ease: 'easeInOut' }}
+          exit={{ opacity: 0, y: 100, x: '-50%' }}
+          onClick={() => submitReorder(tasks)}
+          className="absolute px-4 py-2 font-semibold text-black bg-[#53fc18] rounded-full bottom-4 left-1/2 z-50"
+        >
+          Enregistrer les modifications
+        </motion.button>
+      )}
+
       <main className="flex flex-col items-start justify-start w-full h-screen overflow-hidden bg-neutral-950">
         <header className="w-full h-16 border-b border-neutral-800">
           <div className="flex items-center justify-between w-full h-full px-4 mx-auto max-w-7xl xl:px-0">
@@ -114,7 +150,7 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
                 Ajouter une question
               </button>
               <Link
-                href={`/gamemaster/${event.id}?page=1`}
+                href={`/gm/${event.id}?page=1`}
                 className="px-4 py-2 font-semibold text-black transition-all duration-150 ease-in-out rounded-full bg-[#53fc18] hover:scale-105"
               >
                 Démarrer
@@ -124,13 +160,19 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
         </header>
 
         <section className="w-full h-full px-4 mx-auto overflow-y-auto max-w-7xl xl:px-0">
-          <ul className="grid items-start justify-start w-full grid-cols-1 py-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-fit">
+          <Reorder.Group
+            values={tasks}
+            onReorder={handleReorder}
+            className="grid items-start justify-start w-full grid-cols-1 py-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-fit"
+          >
             {tasks.map((task) => (
-              <li
+              <Reorder.Item
                 key={task.id}
+                value={task}
+                drag
                 className="flex flex-col items-start justify-start w-full h-full p-2"
               >
-                <div className="relative flex flex-col items-start justify-start w-full h-full gap-4 p-4 overflow-hidden transition-all duration-150 ease-in-out bg-opacity-75 bg-neutral-900 rounded-xl backdrop-blur-md group">
+                <div className="relative flex flex-col items-start justify-start w-full h-full gap-4 p-4 overflow-hidden transition-all duration-150 ease-in-out bg-opacity-75 bg-neutral-900 hover:bg-neutral-800 rounded-xl backdrop-blur-md group cursor-grab">
                   <IonTrashBin
                     className="absolute p-1 text-white transition-all ease-in-out transform -translate-x-1/2 bg-red-600 rounded-full opacity-0 cursor-pointer duration-20000 -bottom-10 group-hover:bottom-3 left-1/2 group-hover:opacity-100 size-7 hover:scale-110"
                     onClick={() => submitDestroyTask(task.id)}
@@ -145,6 +187,7 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
                         src={task.media}
                         alt="Logo kick JeanPormanove"
                         className="object-cover w-full border rounded-xl border-neutral-800"
+                        draggable={false}
                       />
                       <div
                         className="absolute top-0 left-0 bg-center bg-no-repeat bg-cover size-full blur-3xl opacity-15 -z-10"
@@ -155,9 +198,9 @@ export default function Show({ event, tasks }: ShowEventProps['props']) {
                     </>
                   )}
                 </div>
-              </li>
+              </Reorder.Item>
             ))}
-          </ul>
+          </Reorder.Group>
         </section>
       </main>
     </>

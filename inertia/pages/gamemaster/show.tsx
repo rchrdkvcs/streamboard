@@ -1,5 +1,6 @@
 import type Task from '#tasks/models/task'
 import { Head, Link, router } from '@inertiajs/react'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 import {
   MaterialSymbolsChevronLeftRounded,
@@ -21,7 +22,7 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
 
   const setVisibility = (visibility: boolean, qstId: string) => {
     setShowAnswer(visibility)
-    router.put('/gamemaster/answer-visibility', { visibility, qstId })
+    router.put('/gm/answer-visibility', { visibility, qstId })
   }
 
   return (
@@ -40,7 +41,14 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
         </header>
 
         <section className="flex flex-col items-center justify-between w-full h-full px-4 py-4 mx-auto md:px-0 max-w-7xl">
-          <div className="relative z-50 flex flex-col items-center justify-center w-full gap-3 p-4 overflow-hidden text-white border md:w-1/2 md:gap-4 bg-neutral-900 rounded-xl border-neutral-800">
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: 100 }}
+            layout
+            className="relative z-50 flex flex-col items-center justify-center w-full gap-3 p-4 overflow-hidden text-white border md:w-1/2 md:gap-4 bg-neutral-900 rounded-xl border-neutral-800"
+          >
             <div
               className="absolute top-0 left-0 bg-center bg-no-repeat bg-cover size-full blur-3xl opacity-15 -z-10"
               style={{
@@ -50,7 +58,7 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
             <h2 className="text-xl font-semibold text-center text-neutral-100">{qst.label}</h2>
             {qst.media && <img src={qst.media} className="w-full mx-auto rounded-lg md:w-3/4" />}
             <p className="text-lg font-semibold text-center text-neutral-300">{qst.answer}</p>
-          </div>
+          </motion.div>
 
           <div className="flex flex-col items-center justify-center w-full gap-2 text-white md:gap-4 md:w-1/2">
             {/* <div className="flex items-center justify-center w-full gap-4">
@@ -64,7 +72,7 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
 
             <div className="flex items-center justify-center w-full gap-2 md:gap-4">
               <Link
-                href={`/gamemaster/${eventId}${meta.previousPageUrl || '/?page=1'}`}
+                href={`/gm/${eventId}${meta.previousPageUrl || '/?page=1'}`}
                 onClick={() => {
                   setVisibility(false, qst.id)
                 }}
@@ -92,7 +100,7 @@ export default function Show({ qst, meta, eventId }: ShowGameMasterProps['props'
                 )}
               </button>
               <Link
-                href={`/gamemaster/${eventId}${meta.nextPageUrl || '/?page=1'}`}
+                href={`/gm/${eventId}${meta.nextPageUrl || '/?page=1'}`}
                 onClick={() => {
                   setVisibility(false, qst.id)
                 }}

@@ -63,6 +63,7 @@
     "@inertiajs/react": "^1.0.16",
     "@vinejs/vine": "^2.0.0",
     "edge.js": "^6.0.2",
+    "framer-motion": "^11.1.7",
     "luxon": "^3.4.4",
     "pg": "^8.11.5",
     "react": "^18.3.1",

@@ -7,6 +7,7 @@
 |
 */
 
+const PatchTaskController = () => import('#tasks/controllers/patch_task_controller')
 import router from '@adonisjs/core/services/router'
 
 const DestroyTaskController = () => import('#tasks/controllers/destroy_task_controller')
@@ -30,14 +31,15 @@ router.delete('/event/destroy', [DestroyEventController])
 
 // GAME MASTER ----------------------------------------------------------------------------------------------
 
-router.get('/gamemaster', [IndexGamemasterController])
-router.get('/gamemaster/:id', [ShowGamemasterController])
-router.put('/gamemaster/answer-visibility', [PutGamemasterController])
+router.get('/gm', [IndexGamemasterController])
+router.get('/gm/:id', [ShowGamemasterController])
+router.put('/gm/answer-visibility', [PutGamemasterController])
 
 // TASK -----------------------------------------------------------------------------------------------------
 
 router.post('/task/store', [StoreTaskController])
 router.delete('/task/destroy', [DestroyTaskController])
+router.patch('/task/reorder', [PatchTaskController])
 
 // STREAM ---------------------------------------------------------------------------------------------------
 
