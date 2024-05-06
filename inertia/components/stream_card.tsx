@@ -1,7 +1,7 @@
 import type Task from '#tasks/models/task'
 import { motion } from 'framer-motion'
 
-export default function Card({ task }: { task: Task }) {
+export default function StreamCard({ task }: { task: Task }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 100 }}

@@ -2,7 +2,9 @@
 
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 import { createInertiaApp } from '@inertiajs/react'
+import { ReactNode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
+import DefaultLayout from '~/layout/default'
 import '../css/app.css'
 
 createInertiaApp({
@@ -10,8 +12,16 @@ createInertiaApp({
 
   title: (title) => `${title}`,
 
-  resolve: (name) => {
-    return resolvePageComponent(`../pages/${name}.tsx`, import.meta.glob('../pages/**/*.tsx'))
+  async resolve(name) {
+    const page = await resolvePageComponent(
+      `../pages/${name}.tsx`,
+      import.meta.glob('../pages/**/*.tsx')
+    )
+
+    // @ts-expect-error - Page is not typed
+    page.default.layout = page.default.layout || ((p: ReactNode) => <DefaultLayout children={p} />)
+
+    return page
   },
 
   setup({ el, App, props }) {

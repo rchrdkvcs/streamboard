@@ -2,7 +2,7 @@ import Task from '#tasks/models/task'
 import { Transmit } from '@adonisjs/transmit-client'
 import { Head } from '@inertiajs/react'
 import { useEffect, useState } from 'react'
-import Card from '../components/card'
+import StreamCard from '~/components/stream_card'
 
 export default function Stream() {
   const [task, setTask] = useState<Task>()
@@ -15,8 +15,8 @@ export default function Stream() {
     const taskSubs = transmit.subscription('stream/task')
     void taskSubs.create()
 
-    taskSubs.onMessage((data: object) => {
-      setTask(data as Task)
+    taskSubs.onMessage(({ task: initialTask }: { task: Task }) => {
+      setTask(initialTask)
     })
   }, [])
 
@@ -24,7 +24,7 @@ export default function Stream() {
     <>
       <Head title="Stream Assets" />
 
-      {task?.label && <Card task={task} />}
+      {task?.label && <StreamCard task={task} />}
     </>
   )
 }

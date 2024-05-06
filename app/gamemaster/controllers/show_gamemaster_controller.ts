@@ -6,16 +6,16 @@ export default class ShowGamemasterController {
     const pageNumber = request.qs().page
     const eventId = params.id
 
-    const tasks = await Task.query()
+    const data = await Task.query()
       .where('event_id', eventId)
       .orderBy('order', 'asc')
       .paginate(pageNumber, 1)
 
-    const qst = tasks.toJSON().data[0]
-    const meta = tasks.getMeta()
+    const task = data.toJSON().data[0]
+    const meta = data.toJSON().meta
 
-    transmit.broadcast('stream/task', { qst })
+    transmit.broadcast('stream/task', { task })
 
-    return inertia.render('gamemaster/show', { qst, meta, eventId })
+    return inertia.render('gamemaster/show', { data: task, meta, eventId })
   }
 }
