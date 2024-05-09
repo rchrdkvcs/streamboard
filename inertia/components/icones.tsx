@@ -61,3 +61,36 @@ export function MdiEyeOffOutline(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export function MaterialSymbolsArrowLeftAltRounded(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="currentColor"
+        d="m7.85 13l2.85 2.85q.3.3.288.7t-.288.7q-.3.3-.712.313t-.713-.288L4.7 12.7q-.3-.3-.3-.7t.3-.7l4.575-4.575q.3-.3.713-.287t.712.312q.275.3.288.7t-.288.7L7.85 11H19q.425 0 .713.288T20 12t-.288.713T19 13z"
+      ></path>
+    </svg>
+  )
+}
+
+export function MaterialSymbolsDashboardRounded(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="currentColor"
+        d="M14 9q-.425 0-.712-.288T13 8V4q0-.425.288-.712T14 3h6q.425 0 .713.288T21 4v4q0 .425-.288.713T20 9zM4 13q-.425 0-.712-.288T3 12V4q0-.425.288-.712T4 3h6q.425 0 .713.288T11 4v8q0 .425-.288.713T10 13zm10 8q-.425 0-.712-.288T13 20v-8q0-.425.288-.712T14 11h6q.425 0 .713.288T21 12v8q0 .425-.288.713T20 21zM4 21q-.425 0-.712-.288T3 20v-4q0-.425.288-.712T4 15h6q.425 0 .713.288T11 16v4q0 .425-.288.713T10 21z"
+      ></path>
+    </svg>
+  )
+}
+
+export function StreamlineLiveVideo(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5.014 8.764V5.236c0-.408.474-.666.86-.468l3.441 1.765a.515.515 0 0 1 0 .934l-3.44 1.765c-.387.198-.861-.06-.861-.468M.61 6.139a6.506 6.506 0 0 0 0 1.593m2.505-5.933a6.506 6.506 0 0 1 1.38-.797M1.068 4.43a6.503 6.503 0 0 1 .796-1.38"></path>
+        <path d="M7.012.5c3.55 0 6.427 2.91 6.427 6.5s-2.877 6.5-6.427 6.5c-2.446 0-4.573-1.382-5.659-3.416"></path>
+      </g>
+    </svg>
+  )
+}

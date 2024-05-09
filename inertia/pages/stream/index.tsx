@@ -24,7 +24,7 @@ export default function Stream() {
     <>
       <Head title="Stream Assets" />
 
-      {task?.label && <StreamCard task={task} />}
+      <main className="w-full h-screen bg-white">{task?.label && <StreamCard task={task} />}</main>
     </>
   )
 }

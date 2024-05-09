@@ -4,19 +4,17 @@ import { Link } from '@inertiajs/react'
 export default function GmLink({
   children,
   data,
-  meta,
-  eventId,
   setVisibility,
+  link,
 }: {
   children: React.ReactNode
   data: Task
-  meta: any
-  eventId: string
   setVisibility: (visibility: boolean, taskId: string) => void
+  link: string
 }) {
   return (
     <Link
-      href={`/gm/${eventId}${meta.previousPageUrl || '/?page=1'}`}
+      href={link}
       onClick={() => {
         setVisibility(false, data.id)
       }}

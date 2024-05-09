@@ -20,10 +20,10 @@ export default function TaskCreateForm({
   }
 
   return (
-    <div className="absolute top-0 left-0 z-50 flex items-center justify-center bg-black bg-opacity-5 size-full backdrop-blur-md">
+    <div className="absolute top-0 left-0 z-50 flex items-center justify-center px-4 bg-black bg-opacity-5 size-full backdrop-blur-md md:px-0">
       <form
         onSubmit={submitCreateTask}
-        className="flex flex-col items-center justify-center w-1/4 gap-6 p-4 border rounded-xl bg-neutral-950 border-neutral-800"
+        className="flex flex-col items-center justify-center w-full gap-6 p-4 border md:w-1/2 xl:w-1/4 rounded-xl bg-neutral-950 border-neutral-800"
       >
         <h2 className="text-lg font-semibold text-white">Ajouter une question</h2>
         <div className="flex flex-col w-full gap-2">

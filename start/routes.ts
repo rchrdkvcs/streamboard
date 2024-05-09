@@ -22,6 +22,10 @@ const ShowEventController = () => import('#events/controllers/show_event_control
 const StoreEventController = () => import('#events/controllers/store_event_controller')
 const StoreTaskController = () => import('#tasks/controllers/store_tasks_controller')
 
+router.get('/', async ({ response }) => {
+  response.redirect('/events')
+})
+
 // EVENTS ---------------------------------------------------------------------------------------------------
 
 router.get('/events', [IndexEventsController])

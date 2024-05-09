@@ -11,7 +11,9 @@ export default function StreamCard({ task }: { task: Task }) {
       layout
       className="absolute z-50 flex flex-col gap-2 p-4 overflow-hidden text-white border rounded-lg bg-neutral-950 bottom-4 right-4 w-80 border-neutral-800"
     >
-      <h3 className="text-lg font-semibold text-neutral-100">{task?.label}</h3>
+      <motion.h3 layout className="text-lg font-semibold text-neutral-100">
+        {task?.label}
+      </motion.h3>
       {task?.media && (
         <>
           <motion.img layout src={task?.media} className="object-cover w-full h-auto rounded-lg" />
@@ -26,6 +28,7 @@ export default function StreamCard({ task }: { task: Task }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
+          layout
           className="text-lg font-semibold text-neutral-200"
         >
           {task.answer}
