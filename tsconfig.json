@@ -2,7 +2,12 @@
   "extends": "@adonisjs/tsconfig/tsconfig.app.json",
   "compilerOptions": {
     "rootDir": "./",
-    "outDir": "./build"
+    "outDir": "./build",
+    "paths": {
+      "#events/*": ["./app/events/*"],
+      "#gamemaster/*": ["./app/gamemaster/*"],
+      "#stream/*": ["./app/stream/*"]
+    }
   },
   "exclude": ["./inertia/**/*", "node_modules", "build"]
 }

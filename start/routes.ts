@@ -7,21 +7,44 @@
 |
 */
 
-const DashboardController = () => import('#controllers/dashboard_controller')
-const StreamController = () => import('#controllers/stream_controller')
-const StoreEventController = () => import('#controllers/dashboard/store_event_controller')
-const StoreQstController = () => import('#controllers/dashboard/store_question_controller')
+const PatchTaskController = () => import('#tasks/controllers/patch_task_controller')
 import router from '@adonisjs/core/services/router'
 
-const HomeController = () => import('#controllers/home_controller')
+const DestroyTaskController = () => import('#tasks/controllers/destroy_task_controller')
+const DestroyEventController = () => import('#events/controllers/destroy_event_controller')
+const PutGamemasterController = () => import('#gamemaster/controllers/put_gamemaster_controller')
+const IndexGamemasterController = () =>
+  import('#gamemaster/controllers/index_gamemaster_controller')
+const ShowGamemasterController = () => import('#gamemaster/controllers/show_gamemaster_controller')
+const IndexStreamController = () => import('../app/stream/controllers/index_stream_controller.js')
+const IndexEventsController = () => import('#events/controllers/index_events_controller')
+const ShowEventController = () => import('#events/controllers/show_event_controller')
+const StoreEventController = () => import('#events/controllers/store_event_controller')
+const StoreTaskController = () => import('#tasks/controllers/store_tasks_controller')
 
-router.get('/', [HomeController, 'show'])
+router.get('/', async ({ response }) => {
+  response.redirect('/events')
+})
 
-router.get('/stream-assets', [StreamController, 'index'])
+// EVENTS ---------------------------------------------------------------------------------------------------
 
-router.get('/dashboard', [DashboardController, 'index'])
-router.get('/dashboard/:id/question', [DashboardController, 'question'])
-router.get('/dashboard/:id/game', [DashboardController, 'game'])
+router.get('/events', [IndexEventsController])
+router.get('/event/:id', [ShowEventController])
+router.post('/event/store', [StoreEventController])
+router.delete('/event/destroy', [DestroyEventController])
 
-router.post('/store-event', [StoreEventController, 'execute'])
-router.post('/store-qst', [StoreQstController, 'execute'])
+// GAME MASTER ----------------------------------------------------------------------------------------------
+
+router.get('/gm', [IndexGamemasterController])
+router.get('/gm/:id', [ShowGamemasterController])
+router.put('/gm/answer-visibility', [PutGamemasterController])
+
+// TASK -----------------------------------------------------------------------------------------------------
+
+router.post('/task/store', [StoreTaskController])
+router.delete('/task/destroy', [DestroyTaskController])
+router.patch('/task/reorder', [PatchTaskController])
+
+// STREAM ---------------------------------------------------------------------------------------------------
+
+router.get('/stream/assets', [IndexStreamController])
