@@ -1,5 +1,5 @@
 import Task from '#tasks/models/task'
-import { Head, Link, router } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { useState } from 'react'
 import GmLink from '~/components/gm_link'
 import GmShowBtn from '~/components/gm_show_btn'
@@ -12,6 +12,7 @@ import {
   MaterialSymbolsDashboardRounded,
   StreamlineLiveVideo,
 } from '~/components/icones'
+import NavLink from '~/components/nav_link'
 import Section from '~/components/section'
 
 export default function Show({ data, meta, eventId }: { data: Task; meta: any; eventId: string }) {
@@ -28,27 +29,13 @@ export default function Show({ data, meta, eventId }: { data: Task; meta: any; e
 
       <HeaderLayout justify="between">
         <div className="flex gap-4">
-          <Link
+          <NavLink
+            label="Retour"
             href={`/event/${eventId}`}
-            className="flex items-center gap-1 font-semibold text-neutral-300 hover:text-white"
-          >
-            <MaterialSymbolsArrowLeftAltRounded className="size-4" />
-            Retour
-          </Link>
-          <Link
-            href="/events"
-            className="flex items-center gap-1 font-semibold text-neutral-300 hover:text-white"
-          >
-            <MaterialSymbolsDashboardRounded className="size-4" />
-            Événement
-          </Link>
-          <Link
-            href="/stream/assets"
-            className="flex items-center gap-1 font-semibold text-neutral-300 hover:text-white"
-          >
-            <StreamlineLiveVideo className="size-4" />
-            Stream preview
-          </Link>
+            Icon={MaterialSymbolsArrowLeftAltRounded}
+          />
+          <NavLink label="Événements" href={`/events`} Icon={MaterialSymbolsDashboardRounded} />
+          <NavLink label="Overlay" href={`/stream/overlay`} Icon={StreamlineLiveVideo} />
         </div>
         <p className="text-lg font-semibold">
           {meta.currentPage} / {meta.total}

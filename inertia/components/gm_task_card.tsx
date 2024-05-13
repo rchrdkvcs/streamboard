@@ -12,7 +12,7 @@ export default function GmTaskCard({ data }: { data: Task }) {
       className="relative z-50 flex flex-col items-center justify-center w-full gap-3 p-4 overflow-hidden text-white border md:w-1/2 md:gap-4 bg-neutral-900 rounded-xl border-neutral-800"
     >
       <div
-        className="absolute top-0 left-0 bg-center bg-no-repeat bg-cover size-full blur-3xl opacity-15 -z-10"
+        className="absolute top-0 left-0 bg-center bg-no-repeat bg-cover opacity-25 size-full blur-3xl -z-10"
         style={{
           backgroundImage: `url(${data.media})`,
         }}

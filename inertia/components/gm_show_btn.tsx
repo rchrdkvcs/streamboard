@@ -15,7 +15,7 @@ export default function GmShowBtn({
       onClick={() => {
         setVisibility(!showAnswer, data.id)
       }}
-      className={`flex items-center justify-center w-full gap-1 py-4 text-sm font-semibold transition-all duration-150 ease-in-out border rounded-lg md:gap-4 md:p-4 md:text-base border-neutral-500 hover:bg-neutral-200 hover:text-black ${showAnswer ? 'bg-neutral-200 text-black' : 'text-neutral-300'}`}
+      className={`flex items-center justify-center w-full gap-1 py-4 text-sm font-medium transition-all duration-300 ease-in-out border rounded-lg md:gap-2 md:p-4 md:text-base border-neutral-500 hover:bg-neutral-200 hover:text-black ${showAnswer ? 'bg-neutral-200 text-black' : 'text-neutral-300'}`}
     >
       {showAnswer ? (
         <>

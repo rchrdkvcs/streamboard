@@ -47,4 +47,4 @@ router.patch('/task/reorder', [PatchTaskController])
 
 // STREAM ---------------------------------------------------------------------------------------------------
 
-router.get('/stream/assets', [IndexStreamController])
+router.get('/stream/overlay', [IndexStreamController])

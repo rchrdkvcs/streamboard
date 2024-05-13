@@ -1,9 +1,19 @@
 import Event from '#events/models/event'
 import Task from '#tasks/models/task'
-import { Head, Link, router } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { Reorder } from 'framer-motion'
 import { useState } from 'react'
 import HeaderLayout from '~/components/header_layout'
+import {
+  CheckIcone,
+  MaterialSymbolsAddRounded,
+  MaterialSymbolsArrowLeftAltRounded,
+  MaterialSymbolsEditOutlineRounded,
+  MaterialSymbolsFastForwardOutlineRounded,
+  StreamlineLiveVideo,
+} from '~/components/icones'
+import NavBtn from '~/components/nav_btn'
+import NavLink from '~/components/nav_link'
 import Section from '~/components/section'
 import TaskCard from '~/components/task_card'
 import TaskCreateForm from '~/components/task_create_form'
@@ -13,6 +23,7 @@ export default function Show({ event, tasks: initialTasks }: { event: Event; tas
   const [formDisplay, setFormDisplay] = useState(false)
   const [tasks, setTasks] = useState(initialTasks)
   const [modified, setModified] = useState(false)
+  const [isModyfing, setIsModifying] = useState(false)
 
   function handleReorder(newOrder: Task[]) {
     if (newOrder.length !== tasks.length) {
@@ -43,36 +54,27 @@ export default function Show({ event, tasks: initialTasks }: { event: Event; tas
       {modified && <TaskSaveBtn tasks={tasks} setModified={setModified} />}
 
       <HeaderLayout>
-        <div className="flex items-center justify-start h-full gap-2">
-          <img
-            src="https://files.kick.com/images/user/380888/profile_image/conversion/b91b943d-b9d5-444d-8cd9-90d36cb63ba4-fullsize.webp"
-            alt="Logo kick JeanPormanove"
-            className="object-cover border-2 rounded-full size-10 border-neutral-800"
-          />
-          <div className="flex items-center justify-center gap-1">
-            <Link
-              href="/events"
-              className="text-base font-semibold text-neutral-100 hover:underline"
-            >
-              Événements
-            </Link>
-            <span className="text-neutral-100">/</span>
-            <p className="text-base font-semibold text-neutral-100">{event.title}</p>
-          </div>
+        <div className="flex items-center justify-start h-full gap-4">
+          <NavLink label="Retour" href={`/events`} Icon={MaterialSymbolsArrowLeftAltRounded} />
+          <NavLink label="Overlay" href={`/stream/overlay`} Icon={StreamlineLiveVideo} />
         </div>
         <div className="flex items-center justify-center gap-4">
-          <button
-            className="px-3 py-1 font-semibold transition-all duration-150 ease-in-out border rounded-full border-neutral-500 text-neutral-300 hover:bg-neutral-200 hover:text-black"
+          <NavBtn
             onClick={() => setFormDisplay(true)}
-          >
-            Ajouter une question
-          </button>
-          <Link
+            Icon={MaterialSymbolsAddRounded}
+            label="Ajouter"
+          />
+          <NavBtn
+            onClick={() => setIsModifying(!isModyfing)}
+            Icon={isModyfing ? CheckIcone : MaterialSymbolsEditOutlineRounded}
+            label={isModyfing ? 'Terminer' : 'Modifier'}
+          />
+          <NavLink
+            label="Démarrer"
             href={`/gm/${event.id}?page=1`}
-            className="px-4 py-2 font-semibold text-black transition-all duration-150 ease-in-out rounded-full bg-[#53fc18] hover:scale-105"
-          >
-            Démarrer
-          </Link>
+            Icon={MaterialSymbolsFastForwardOutlineRounded}
+            className="flex items-center gap-1 px-2 py-1 font-medium text-black transition duration-300 rounded-full bg-neutral-300 hover:bg-white"
+          />
         </div>
       </HeaderLayout>
 
@@ -89,7 +91,7 @@ export default function Show({ event, tasks: initialTasks }: { event: Event; tas
               drag
               className="flex flex-col items-start justify-start w-full h-full p-2"
             >
-              <TaskCard task={task} submitDestroyTask={submitDestroyTask} />
+              <TaskCard task={task} submitDestroyTask={submitDestroyTask} isModifyng={isModyfing} />
             </Reorder.Item>
           ))}
         </Reorder.Group>
