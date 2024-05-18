@@ -22,7 +22,7 @@ export default function Stream() {
 
   return (
     <>
-      <Head title="Stream Assets" />
+      <Head title="Stream Overlay" />
 
       <main className="w-full h-screen bg-white">{task?.label && <StreamCard task={task} />}</main>
     </>

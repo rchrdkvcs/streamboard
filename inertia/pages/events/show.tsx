@@ -71,7 +71,7 @@ export default function Show({ event, tasks: initialTasks }: { event: Event; tas
           />
           <NavLink
             label="Démarrer"
-            href={`/gm/${event.id}?page=1`}
+            href={`/gm/${event.id}/?page=1`}
             Icon={MaterialSymbolsFastForwardOutlineRounded}
             className="flex items-center gap-1 px-2 py-1 font-medium text-black transition duration-300 rounded-full bg-neutral-300 hover:bg-white"
           />

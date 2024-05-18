@@ -6,10 +6,9 @@
 | The routes file is used for defining the HTTP routes.
 |
 */
-
-const PatchTaskController = () => import('#tasks/controllers/patch_task_controller')
 import router from '@adonisjs/core/services/router'
 
+const PatchTaskController = () => import('#tasks/controllers/patch_task_controller')
 const DestroyTaskController = () => import('#tasks/controllers/destroy_task_controller')
 const DestroyEventController = () => import('#events/controllers/destroy_event_controller')
 const PutGamemasterController = () => import('#gamemaster/controllers/put_gamemaster_controller')
@@ -36,7 +35,7 @@ router.delete('/event/destroy', [DestroyEventController])
 // GAME MASTER ----------------------------------------------------------------------------------------------
 
 router.get('/gm', [IndexGamemasterController])
-router.get('/gm/:id', [ShowGamemasterController])
+router.get('/gm/:id/', [ShowGamemasterController])
 router.put('/gm/answer-visibility', [PutGamemasterController])
 
 // TASK -----------------------------------------------------------------------------------------------------
