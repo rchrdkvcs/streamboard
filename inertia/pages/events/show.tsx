@@ -5,7 +5,7 @@ import { Reorder } from 'framer-motion'
 import { useState } from 'react'
 import HeaderLayout from '~/components/header_layout'
 import {
-  CheckIcone,
+  CheckIcon,
   MaterialSymbolsAddRounded,
   MaterialSymbolsArrowLeftAltRounded,
   MaterialSymbolsEditOutlineRounded,
@@ -66,7 +66,7 @@ export default function Show({ event, tasks: initialTasks }: { event: Event; tas
           />
           <NavBtn
             onClick={() => setIsModifying(!isModyfing)}
-            Icon={isModyfing ? CheckIcone : MaterialSymbolsEditOutlineRounded}
+            Icon={isModyfing ? CheckIcon : MaterialSymbolsEditOutlineRounded}
             label={isModyfing ? 'Terminer' : 'Modifier'}
           />
           <NavLink

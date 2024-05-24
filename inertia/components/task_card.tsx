@@ -1,5 +1,5 @@
 import Task from '#tasks/models/task'
-import { RemoveIcone } from './icones'
+import { RemoveIcon } from './icones'
 
 export default function TaskCard({
   task,
@@ -38,7 +38,7 @@ export default function TaskCard({
           className="absolute z-50 flex items-center justify-center bg-red-600 rounded-full top-2 right-2 size-6"
           onClick={() => submitDestroyTask(task.id)}
         >
-          <RemoveIcone className="text-white size-6" />
+          <RemoveIcon className="text-white size-6" />
         </button>
       )}
     </div>
