@@ -7,7 +7,10 @@ export default class ShowGamemasterController {
     const pageNumber = request.qs().page
     const eventId = await params.id
 
-    const data = await Task.query().where('event_id', eventId).paginate(pageNumber, 1)
+    const data = await Task.query()
+      .where('event_id', eventId)
+      .orderBy('order', 'asc')
+      .paginate(pageNumber, 1)
 
     const task = data.toJSON().data[0]
     const meta = data.toJSON().meta
