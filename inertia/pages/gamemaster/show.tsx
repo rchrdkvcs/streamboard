@@ -43,7 +43,7 @@ export default function Show({ data, meta, eventId }: { data: Task; meta: any; e
       </HeaderLayout>
 
       <Section className="flex flex-col items-center justify-between pt-4 py-4 overflow-hidden">
-        <div className="w-full h-full overflow-y-auto">
+        <div className="w-full h-full overflow-y-auto flex justify-center items-start">
           <GmTaskCard data={data} />
         </div>
 
