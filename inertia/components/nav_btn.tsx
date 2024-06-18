@@ -12,8 +12,8 @@ export default function NavBtn({
       onClick={onClick}
       className="relative flex items-center gap-1 transition duration-300 text-neutral-400 hover:text-white group"
     >
-      <Icon className="size-4" />
-      {label}
+      <Icon className="lg:size-4 size-5" />
+      <span className="hidden lg:block">{label}</span>
     </button>
   )
 }

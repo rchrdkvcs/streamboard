@@ -9,7 +9,7 @@ export default function Stream() {
 
   useEffect(() => {
     const transmit = new Transmit({
-      baseUrl: 'http://localhost:3333',
+      baseUrl: 'https://jp.b34r.fr',
     })
 
     const taskSubs = transmit.subscription('stream/task')

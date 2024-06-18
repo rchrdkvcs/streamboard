@@ -7,7 +7,7 @@ export default function Section({
 }) {
   return (
     <section
-      className={`w-full h-full px-4 mx-auto overflow-y-auto max-w-7xl xl:px-0 ${className}`}
+      className={`w-full h-dvh max-h-dvh pt-[64px] px-4 mx-auto overflow-y-auto max-w-7xl xl:px-0 ${className}`}
     >
       {children}
     </section>

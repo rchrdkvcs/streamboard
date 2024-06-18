@@ -9,7 +9,7 @@ export default function GmTaskCard({ data }: { data: Task }) {
       transition={{ duration: 0.3 }}
       exit={{ opacity: 0, y: 100 }}
       layout
-      className="relative z-50 flex flex-col items-center justify-center w-full gap-3 p-4 overflow-hidden text-white border md:w-1/2 md:gap-4 bg-neutral-900 rounded-xl border-neutral-800"
+      className="relative z-50 flex flex-col items-center justify-center w-full gap-3 p-4 overflow-hidden text-white border md:w-1/2 md:gap-4 bg-neutral-900 rounded-xl border-neutral-800 mt-4"
     >
       <div
         className="absolute top-0 left-0 bg-center bg-no-repeat bg-cover opacity-25 size-full blur-3xl -z-10"

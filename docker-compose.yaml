@@ -1,4 +1,27 @@
 services:
+  app:
+    image: ghcr.io/b34roff/jeanpormanove:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
+    depends_on:
+      - database
+    environment:
+      - TZ=UTC
+      - PORT=8081
+      - HOST=0.0.0.0
+      - LOG_LEVEL=info
+      - APP_KEY=UIftWVg2Slweu1eRN2VvObGvbZ-5KUdw
+      - NODE_ENV=production
+      - SESSION_DRIVER=cookie
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_DATABASE=jeanpormanove
+      - DB_USER=app
+      - DB_PASSWORD=secret
+
   database:
     image: postgres:16-alpine3.19
     ports:
