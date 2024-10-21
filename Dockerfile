@@ -1,23 +1,23 @@
-FROM node:22-alpine3.20 as base
+FROM node:20.12.2-alpine3.18 AS base
 
 # All deps stage
-FROM base as deps
+FROM base AS deps
 WORKDIR /app
 ADD package.json pnpm-lock.yaml ./
 RUN npm install
 
 # Production only deps stage
-FROM base as production-deps
+FROM base AS production-deps
 WORKDIR /app
 ADD package.json pnpm-lock.yaml ./
-RUN npm install --production
+RUN npm install --omit=dev
 
 # Build stage
-FROM base as build
+FROM base AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 ADD . .
-RUN node ace build --ignore-ts-errors
+RUN node ace build
 
 # Production stage
 FROM base
@@ -26,5 +26,5 @@ WORKDIR /app
 COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
 
-EXPOSE 8081
+EXPOSE 8080
 CMD ["node", "./bin/server.js"]
